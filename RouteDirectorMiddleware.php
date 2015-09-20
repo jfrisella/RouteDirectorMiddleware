@@ -20,9 +20,20 @@ class RouteDirectorMiddleware extends \Slim\Middleware
             if(is_callable([$this, $this->afterCall])){
                 $this->callRoute();
             }else{
-                throw new Exception("\\VJS\\ExtendableMiddleware\\call : afterCall() was not set");
+                throw new Exception("VJS\\Middleware\\RouteDirectorMiddleware\\call : " . $this->afterCall . " was not set");
             }
         }
+    }
+    
+    /**
+    *   callRoute
+    *   You should override this method
+    */
+    public function callRoute(){
+        
+        //do the same stuff in here you would for call()
+        //in the normal Slim\Middleware class
+    
     }
     
     /**
