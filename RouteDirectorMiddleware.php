@@ -14,7 +14,7 @@ class RouteDirectorMiddleware extends \Slim\Middleware
     
     
     public function call(){
-        if(!$this->skipMiddlewareForRoute()){
+        if($this->skipMiddlewareForRoute()){
             $this->next->call();
         }else{
             if(is_callable([$this, $this->afterCall])){
@@ -44,12 +44,12 @@ class RouteDirectorMiddleware extends \Slim\Middleware
         
         //Test if excludedRoutes exists and is_array
         if(isset($this->excludedRoutes) && is_array($this->excludedRoutes)){
-            return !$this->isExcluded($this->excludedRoutes);
+            return $this->isExcluded($this->excludedRoutes);
         }
         
         //Test if includedRoutes exists and is_array
         if(isset($this->includedRoutes) && is_array($this->includedRoutes)){
-            return $this->isExcluded($this->includedRoutes);
+            return !$this->isExcluded($this->includedRoutes);
         }
         
         //if no routes are provided then we can assume
