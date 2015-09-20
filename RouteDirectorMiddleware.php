@@ -54,10 +54,11 @@ class RouteDirectorMiddleware extends \Slim\Middleware
     protected function isExcluded($pathsToTest){
         $r = $this->app->router();
         $c = $this->app->request()->getPathInfo();
+        
         foreach($pathsToTest as $name){
             try{
+                //Get Path for the named url
                 $path = $r->urlFor($name);
-                echo "path : " . $path . "<br>";
             }catch(\Exception $e){
                 continue;
             }
