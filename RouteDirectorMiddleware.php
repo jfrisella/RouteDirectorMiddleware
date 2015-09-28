@@ -7,12 +7,37 @@ namespace VJS\Middleware;
 class RouteDirectorMiddleware extends \Slim\Middleware
 {
 
+    /**
+    *   Excluded Routes
+    *       - items must be named slim routes
+    *
+    *   @var array
+    */
     protected $excludedRoutes;
+    
+    
+    /**
+    *   Included rountes
+    *       - items must be named slim routes
+    *
+    *   @var array
+    */
     protected $includedRoutes;
     
+    
+    /**
+    *   Method name to be called after call()
+    *
+    *   @var string
+    */
     protected $afterCall = "callRoute";
     
     
+    /**
+    *   Main Slim\Middleware call method 
+    *  
+    *   @override
+    */
     public function call(){
         if($this->skipMiddlewareForRoute()){
             $this->next->call();
@@ -25,9 +50,10 @@ class RouteDirectorMiddleware extends \Slim\Middleware
         }
     }
     
+    
     /**
-    *   callRoute
     *   You should override this method
+    *       when implementing this class
     */
     public function callRoute(){
         
@@ -36,8 +62,10 @@ class RouteDirectorMiddleware extends \Slim\Middleware
     
     }
     
+    
     /**
-    *   Skip Route
+    *   Skip Middleware for route testing class
+    *
     *   @return Boolean - if middleware should be skipped for route
     */
     protected function skipMiddlewareForRoute(){
@@ -57,10 +85,12 @@ class RouteDirectorMiddleware extends \Slim\Middleware
         return false;
     }
     
+    
     /**
-    *   IsExcluded
-    *   @param $pathsToTest - list of NAMED routes to test for exclusion
-    *   @return Boolean - if path is excluded
+    *   Is excluded path
+    *
+    *   @param $pathsToTest {array} - list of named routes to test for exclusion
+    *   @return boolean - if path is excluded
     */
     protected function isExcluded($pathsToTest){
         $r = $this->app->router();
